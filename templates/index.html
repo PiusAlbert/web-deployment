@@ -55,7 +55,9 @@
 
       <!-- Pager-->
       <div class="d-flex justify-content-end mb-4">
-        <a class="btn btn-secondary text-uppercase" href="#!">Older Posts →</a>
+        {% if has_next_page %}
+        <a class="btn btn-secondary text-uppercase" href="{{ url_for('get_all_posts', page=current_page + 1) }}">Older Posts →</a>
+        {% endif %}
       </div>
     </div>
   </div>

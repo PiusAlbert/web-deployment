@@ -194,9 +194,23 @@ def logout():
 
 @app.route('/')
 def get_all_posts():
-    result = db.session.execute(db.select(BlogPost))
+    # Set the number of posts per page
+    per_page = 5
+    page = request.args.get('page', 1, type=int)
+    
+    # Use offset and limit to paginate posts
+    result = db.session.execute(
+        db.select(BlogPost).order_by(BlogPost.date.desc())
+        .offset((page - 1) * per_page)
+        .limit(per_page + 1)
+    )
     posts = result.scalars().all()
-    return render_template("index.html", all_posts=posts, current_user=current_user)
+    
+    # Check if there are more posts beyond the current page
+    has_next_page = len(posts) > per_page
+    posts = posts[:per_page]  # Trim extra post used to check for the next page
+    
+    return render_template("index.html", all_posts=posts, current_user=current_user, has_next_page=has_next_page, current_page=page)
 
 
 # Add a POST method to be able to post comments
