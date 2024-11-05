@@ -297,7 +297,7 @@ def about():
 # Use environment variables instead (Day 35)
 
 MAIL_ADDRESS = os.environ.get("EMAIL_KEY")
-MAIL_APP_PW = os.environ.get("PASSWORD_KEY")
+MAIL_APP_PW =os.environ.get("PASSWORD_KEY")
 RECEIVING_MAIL = os.environ.get("RECV_MAIL")
 
 @app.route("/contact", methods=["GET", "POST"])
