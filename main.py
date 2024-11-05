@@ -298,6 +298,7 @@ def about():
 
 MAIL_ADDRESS = os.environ.get("EMAIL_KEY")
 MAIL_APP_PW = os.environ.get("PASSWORD_KEY")
+RECEIVING_MAIL = os.environ.get("RECV_MAIL")
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
@@ -313,7 +314,7 @@ def send_email(name, email, phone, message):
     with smtplib.SMTP("smtp.gmail.com") as connection:
         connection.starttls()
         connection.login(MAIL_ADDRESS, MAIL_APP_PW)
-        connection.sendmail(MAIL_ADDRESS, MAIL_APP_PW, email_message)
+        connection.sendmail(MAIL_ADDRESS, RECEIVING_MAIL, email_message)
 
 
 if __name__ == "__main__":
